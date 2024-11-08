@@ -16,7 +16,7 @@ services:
     volumes:
       # 호스트의 디렉토리와 컨테이너의 경로를 연결
       # 호스트 디렉토리 설정
-      - /data/ysla/ExpManager_241106/db_data:/var/lib  # 실제 서버내 site.db가 저장된 디렉토리를 컨테이너의 /var/lib로 마운트
+      - ./db_data:/var/lib  # 실제 서버내 site.db가 저장된 디렉토리를 컨테이너의 /var/lib로 마운트
 
   frontend:
     image: expmanager-frontend
