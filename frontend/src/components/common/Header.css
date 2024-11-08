@@ -1,0 +1,23 @@
+.header {
+    background-color: #e1f5fe;
+    padding: 10px 30px;
+    color: #3031f4;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.header a {
+    text-decoration:none;
+}
+.header nav a {
+    font-size: 15px;
+    color: #555555;
+    margin: 0 10px;
+    text-decoration: underline;
+}
+
+.header nav a:hover {
+    color: #000000; /* 색상 변경: 필요한 색상 코드로 변경 가능 */
+}

@@ -1,0 +1,30 @@
+version: '3'
+services:
+  backend:
+    image: expmanager-backend
+    build:
+      context: ./backend
+    container_name: expmanager-backend
+    # 호스트 포트: 외부에서 접근할 때 사용하는 포트.
+    # 컨테이너 포트: 컨테이너 내 서비스가 실행되는 포트.
+    # 컨테이너 내부의 포트는 각 도커 서비스마다 독립적으로 사용해 겹쳐도 상관없음. 호스트만 바꿔주면됨.
+    ports:
+      - "8002:8002" # 호스트 포트: 컨테이너 포트
+    environment:
+      # 컨테이너 내부에서 사용될 데이터베이스 경로
+      - SQLITE_PATH=/var/lib/site.db
+    volumes:
+      # 호스트의 디렉토리와 컨테이너의 경로를 연결
+      # 호스트 디렉토리 설정
+      - /data/ysla/ExpManager_241106/db_data:/var/lib  # 실제 서버내 site.db가 저장된 디렉토리를 컨테이너의 /var/lib로 마운트
+
+  frontend:
+    image: expmanager-frontend
+    build:
+      context: ./frontend
+    container_name: expmanager-frontend
+    # 호스트 포트 변경
+    ports:
+      - "3002:3002"
+    environment:
+      - REACT_APP_BACKEND_PORT=8002

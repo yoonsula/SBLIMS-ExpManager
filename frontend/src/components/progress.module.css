@@ -1,0 +1,84 @@
+.tableContainer {
+  flex: 1;
+  overflow-x: auto;
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 8px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fixedCol {
+  width:250px;
+  min-width:250px;
+  max-width:250px;
+}
+
+.leftSection {
+  flex: 1 1 25%;
+  margin: 10px;
+  padding: 20px;
+}
+
+.rightSection {
+  flex: 1 1 65%;
+  margin: 10px;
+  padding: 20px;
+}
+
+
+.table-container {
+  margin: 20px;
+  border-spacing: 0;
+}
+
+.mainTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mainTable th, .mainTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.categoryRow {
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.categoryRow:hover {
+  background-color: #f1f1f1;
+}
+
+.subTableContainer {
+  padding: 0;
+}
+
+.subTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-left: 20px;
+  transition: all 0.3s ease;
+}
+
+.subTable th, .subTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.subTable th {
+  background-color: #f0f0f0;
+}
+
+.subTable tr:nth-child(even) {
+  background-color: #fafafa;
+}

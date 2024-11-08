@@ -1,0 +1,1 @@
+https://fastapi.tiangolo.com/ko/tutorial/sql-databases/?h=sqlite#create-pydantic-models-schemas-for-reading-returning
