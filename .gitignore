@@ -191,4 +191,4 @@ sketch
 # End of https://www.toptal.com/developers/gitignore/api/python,react
 
 # file
-backend/uploaded_files/*
+/backend/uploaded_files/*
