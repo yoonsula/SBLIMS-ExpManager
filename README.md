@@ -14,8 +14,11 @@
 # backend > port, frontend > port 부분 수정
 ports:
       - "8002:8000" # 백엔드 8002로 변경 원할 시
-ports:
-      - "3002:3000" # 프론트엔드 포트 3002로 변경 원할 시
+frontend:
+      ports:
+            - "3002:3000" # 프론트엔드 포트 3002로 변경 원할 시
+      environment:
+            - REACT_APP_BACKEND_PORT=8002 # 위에서 설정한 백엔드 포트로 변경
 ```
 
 3. docker-compose build
