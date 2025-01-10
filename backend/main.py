@@ -54,13 +54,13 @@ def get_db(request: Request):
 # 프로젝트 관련 엔드포인트
 
 ## 프로젝트 읽기
-@app.get("/projects/", response_model=List[schemas.Proj])
+@app.get("/projects", response_model=List[schemas.Proj])
 def read_projects(db: Session = Depends(get_db)):
     projects = crud.get_projects(db)
     return projects
 
 ## 프로젝트 생성
-@app.post("/project/")
+@app.post("/project")
 def create_project(projName: str=Form(...),
                    manager: str=Form(...),
                    genDate: date=Form(...),
@@ -167,13 +167,13 @@ def delete_project(projId: int, db: Session = Depends(get_db)):
 # 태스크 관련 엔드포인트
 
 ## 태스크 읽기
-@app.get("/tasks/", response_model=List[schemas.Task])
+@app.get("/tasks", response_model=List[schemas.Task])
 def read_tasks(projId: int, db: Session = Depends(get_db)):
     tasks = crud.get_tasks(db, projId)
     return tasks
 
 ## 태스크 생성
-@app.post("/task/", response_model=schemas.Task)
+@app.post("/task", response_model=schemas.Task)
 def create_task(task: schemas.TaskCreate, projId: int, db: Session = Depends(get_db)):
     db_task = crud.get_task_by_name(db, task_name=task.taskName)
     if db_task:
@@ -182,7 +182,7 @@ def create_task(task: schemas.TaskCreate, projId: int, db: Session = Depends(get
 
 
 ## 태스크 업로드 및 workflow/unitOperation 업로드(완료) + 마크다운파일 제한 (진행전)
-@app.post("/projects/{projId}/tasks/")
+@app.post("/projects/{projId}/tasks")
 def create_task_for_project(projId: int, 
                             taskName: str = Form(...),
                             researcher: str = Form(...),
@@ -249,7 +249,7 @@ def read_task(taskId: int, db: Session = Depends(get_db)):
     return db_task
 
 ## 태스크 업데이트
-@app.put("/tasks/{taskId}/")
+@app.put("/tasks/{taskId}")
 def update_task(taskId: int,
                 taskName: Optional[str] = Form(...),
                 researcher: Optional[str] = Form(...),
@@ -318,7 +318,7 @@ def delete_task(taskId: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="태스크를 찾을 수 없습니다")
     return db_task
 
-@app.get("/projects/{projId}/tasks/", response_model=List[schemas.Task])
+@app.get("/projects/{projId}/tasks", response_model=List[schemas.Task])
 def read_tasks_by_project(projId: int, db: Session = Depends(get_db)):
     tasks = crud.get_tasks_by_project(db, projId=projId)
     return tasks
@@ -337,20 +337,20 @@ def download_task_structure(task_id: int, db: Session = Depends(get_db)):
     return FileResponse(path=file_path, filename=os.path.basename(file_path))
 
 ## 워크플로우 테이블 불러오기 (완료)
-@app.get("/workflows/", response_model=List[schemas.Workflow])
+@app.get("/workflows", response_model=List[schemas.Workflow])
 def read_workflows(db: Session = Depends(get_db)):
     projects = crud.get_workflows(db)
     return projects
 
 ## 유닛오퍼레이션 테이블 불러오기 (완료)
-@app.get("/unitoperations/", response_model=List[schemas.UnitOperation])
+@app.get("/unitoperations", response_model=List[schemas.UnitOperation])
 def read_unitOperations(db: Session = Depends(get_db)):
     unitOperations = crud.get_unitOperations(db)
     return unitOperations
 
 
 # project db 내 마크다운 파일 업로드
-@app.post("/upload/{projId}/")
+@app.post("/upload/{projId}")
 async def upload_proj_file(projId, file: UploadFile, db: Session = Depends(get_db)):
     UPLOAD_DIR = f"./uploaded_files/projects/{projId}"  # 이미지를 저장할 서버 경로
     
@@ -375,7 +375,7 @@ async def upload_proj_file(projId, file: UploadFile, db: Session = Depends(get_d
     return {"project": db_proj, "filePath": file_path}
 
 # task db 내 마크다운 파일 업로드
-@app.post("/upload/{taskId}/")
+@app.post("/upload/{taskId}")
 async def upload_task_file(taskId, file: UploadFile, db: Session = Depends(get_db)):
     UPLOAD_DIR = f"./uploaded_files/tasks/{taskId}"  # 이미지를 저장할 서버 경로
     
@@ -403,7 +403,7 @@ async def upload_task_file(taskId, file: UploadFile, db: Session = Depends(get_d
     return {"task": db_task}
 
 
-@app.get("/project/{projId}/image/")
+@app.get("/project/{projId}/image")
 async def get_proj_file(projId, db: Session = Depends(get_db)):
     db_project = crud.get_project(db, projId=projId)
     if db_project is None:
