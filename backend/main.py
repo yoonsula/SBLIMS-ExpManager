@@ -28,8 +28,6 @@ ALLOW_ORIGINS = [
     "*",
     # "http://localhost:8081",
     # "http://localhost:8080",
-    # "http://114.110.129.233:8000",
-    # "https://rexsw.com",
 ]
 app.add_middleware(
     CORSMiddleware,
